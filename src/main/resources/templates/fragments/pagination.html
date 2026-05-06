@@ -1,38 +1,56 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head></head>
+
 <body>
+
 <div th:fragment="pagination">
 
     <!-- Pagination -->
-    <div class="pagination" th:with="baseUrl=${URLparameter}">
-        <span th:if="${pager.indexOutOfBounds()}">
-            Page is out of bounds. Go back to <a class="pageLink"
-                                                 th:href="@{${baseUrl}(page=1)}">Home</a>.
-        </span>
+    <div class="pagination-container" th:with="baseUrl=${URLparameter}">
 
-        <span th:unless="${pager.indexOutOfBounds()}">
+        <!-- Out of bounds -->
+        <div th:if="${pager.indexOutOfBounds()}" class="pagination-info">
+            Page is out of bounds.
+            <a class="page-btn" th:href="@{${baseUrl}(page=1)}">Go Home</a>
+        </div>
 
-            <span th:if="${pager.hasPrevious()}">
-                <a class="pageLink"
-                   th:href="@{${baseUrl}(page=1)}">&laquo; first</a>
-                <a class="pageLink"
-                   th:href="@{${baseUrl}(page=${pager.getPageIndex() - 1})}"> previous</a>
-            </span>
+        <!-- Normal Pagination -->
+        <div th:unless="${pager.indexOutOfBounds()}" class="pagination-box">
 
-            <span th:if="${pager.getTotalPages() != 1}"
-                  th:text="'Page ' + ${pager.getPageIndex()} + ' of ' + ${pager.getTotalPages()} + '.'">
-            </span>
+            <!-- Previous -->
+            <div class="page-group" th:if="${pager.hasPrevious()}">
+                <a class="page-btn" th:href="@{${baseUrl}(page=1)}">« First</a>
+                <a class="page-btn"
+                   th:href="@{${baseUrl}(page=${pager.getPageIndex() - 1})}">
+                    ‹ Prev
+                </a>
+            </div>
 
-            <span th:if="${pager.hasNext()}">
-                <a class="pageLink"
-                   th:href="@{${baseUrl}(page=${pager.getPageIndex() + 1})}">next</a>
-                <a class="pageLink"
-                   th:href="@{${baseUrl}(page=${pager.getTotalPages()})}">last &raquo;</a>
-            </span>
-        </span>
+            <!-- Page Info -->
+            <div class="page-info"
+                 th:if="${pager.getTotalPages() != 1}"
+                 th:text="'Page ' + ${pager.getPageIndex()} + ' of ' + ${pager.getTotalPages()}">
+            </div>
+
+            <!-- Next -->
+            <div class="page-group" th:if="${pager.hasNext()}">
+                <a class="page-btn"
+                   th:href="@{${baseUrl}(page=${pager.getPageIndex() + 1})}">
+                    Next ›
+                </a>
+                <a class="page-btn"
+                   th:href="@{${baseUrl}(page=${pager.getTotalPages()})}">
+                    Last »
+                </a>
+            </div>
+
+        </div>
+
     </div>
 
 </div>
+
 </body>
 </html>

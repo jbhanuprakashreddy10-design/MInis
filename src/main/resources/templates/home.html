@@ -2,22 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <div th:replace="/fragments/header :: header"/>
+    <div th:replace="/fragments/header :: header"></div>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-<div th:replace="/fragments/header :: navbar"/>
+<!-- Navbar -->
+<div th:replace="/fragments/header :: navbar"></div>
 
-<div class="container">
+<!-- Main Content -->
+<div class="main-container">
 
-    <div th:replace="/fragments/products :: products"/>
+    <!-- Page Title -->
+    <div class="page-header">
+        <h2>Explore Products</h2>
+        <p>Find the best items for you</p>
+    </div>
 
-    <div th:replace="/fragments/pagination :: pagination(URLparameter='/home')"/>
+    <!-- Products Section -->
+    <div class="products-wrapper">
+        <div th:replace="/fragments/products :: products"></div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-wrapper">
+        <div th:replace="/fragments/pagination :: pagination(URLparameter='/home')"></div>
+    </div>
 
 </div>
 
-<div th:replace="/fragments/footer :: footer"/>
+<!-- Footer -->
+<div th:replace="/fragments/footer :: footer"></div>
 
 </body>
 </html>

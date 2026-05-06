@@ -3,46 +3,72 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <div th:replace="/fragments/header :: header"/>
+    <div th:replace="/fragments/header :: header"></div>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-<div th:replace="/fragments/header :: navbar"/>
+<!-- Navbar -->
+<div th:replace="/fragments/header :: navbar"></div>
 
-<div class="container">
+<div class="cart-container">
 
-    <h1 class="jumbotron">
+    <!-- Title -->
+    <h2 class="cart-title">
         <span sec:authentication="name"></span>'s Shopping Cart
-    </h1>
+    </h2>
 
-    <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
+    <!-- Out of stock message -->
+    <div class="alert error" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
 
-    <div class="panel-default well" th:each="product : ${products.entrySet()}">
-        <div class="panel-heading">
-            <h1><a th:text="${product.getKey().name}" th:href="@{'/product/' + ${product.getKey().id}}">Title</a></h1>
-            <h3 th:text="${product.getKey().description}">Description</h3>
+    <!-- Cart Items -->
+    <div class="cart-list">
+
+        <div class="cart-card" th:each="product : ${products.entrySet()}">
+
+            <div class="cart-info">
+                <h3>
+                    <a th:text="${product.getKey().name}"
+                       th:href="@{'/product/' + ${product.getKey().id}}">
+                        Product Name
+                    </a>
+                </h3>
+
+                <p class="desc" th:text="${product.getKey().description}">Description</p>
+
+                <div class="details">
+                    <span>Price: <span th:text="${product.getKey().price}"></span> $</span>
+                    <span>Qty: <span th:text="${product.getValue()}"></span></span>
+                </div>
+            </div>
+
+            <!-- Remove Button -->
+            <div class="cart-actions">
+                <a th:href="@{'/shoppingCart/removeProduct/{id}'(id=${product.getKey().id})}">
+                    <button class="btn-remove">Remove</button>
+                </a>
+            </div>
+
         </div>
-        <div class="row panel-body">
-            <div th:inline="text" class="col-md-2">Price: [[${product.getKey().price}]] $</div>
-            <div th:inline="text" class="col-md-9">Quantity: [[${product.getValue()}]]</div>
-            <a th:href="@{'/shoppingCart/removeProduct/{id}'(id=${product.getKey().id})}" class="col-md-1">
-                <button type="button" class="btn btn-primary" th:text="Remove">Remove</button>
-            </a>
-        </div>
-        <br></br>
+
     </div>
 
-    <div class="row panel-body">
-        <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
-        <a th:href="@{'/shoppingCart/checkout'}" class="col-md-1">
-            <button type="button" class="btn btn-danger" th:text="Checkout">Checkout</button>
+    <!-- Total + Checkout -->
+    <div class="cart-summary">
+        <h3>Total: <span th:text="${total}"></span></h3>
+
+        <a th:href="@{'/shoppingCart/checkout'}">
+            <button class="btn-checkout">Checkout</button>
         </a>
     </div>
 
 </div>
 
-<div th:replace="/fragments/footer :: footer"/>
+<!-- Footer -->
+<div th:replace="/fragments/footer :: footer"></div>
 
 </body>
 </html>

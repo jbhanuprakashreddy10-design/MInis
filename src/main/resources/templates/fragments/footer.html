@@ -1,32 +1,36 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
-<head>
-</head>
+<head></head>
 
 <body>
 
 <div th:fragment="footer">
 
-    <hr/>
+    <footer class="footer">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <span sec:authorize="isAuthenticated()">
-                | Logged user: <span sec:authentication="name"></span> |
-                Roles: <span sec:authentication="principal.authorities"></span> |
-                <a th:href="@{/logout}">Sign Out</a>
+        <!-- Top Line -->
+        <div class="footer-top">
+            <span sec:authorize="isAuthenticated()">
+                Logged in as:
+                <strong><span sec:authentication="name"></span></strong>
+
+                | Roles:
+                <span sec:authentication="principal.authorities"></span>
+
+                | <a th:href="@{/logout}" class="logout-link">Logout</a>
             </span>
-
-                <div>
-                    <p class="text-center">&copy; 2017 Dusan Reljic</p>
-                </div>
-
-            </div>
         </div>
-    </div>
 
+        <!-- Bottom Line -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 YourShop. All rights reserved.</p>
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap JS (keep same) -->
     <script type="text/javascript"
             src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
