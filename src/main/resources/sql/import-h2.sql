@@ -27,9 +27,9 @@ INSERT INTO USER_ROLE (user_id, role_id)
 VALUES (3, 2);
 
 INSERT INTO PRODUCT (name, description, quantity, price, image_url)
-VALUES ('Soap', 'Pears baby soap for Kids', 1, 35.75, 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=900&q=80');
+VALUES ('Soap', 'Pears baby soap for Kids', 1, 35.75, 'https://images.pexels.com/photos/4465124/pexels-photo-4465124.jpeg?auto=compress&cs=tinysrgb&w=900');
 INSERT INTO PRODUCT (name, description, quantity, price, image_url)
-VALUES ('Tooth Brush', 'Signal Tooth Brushes Size in (L, M, S)', 5, 34.50, 'https://images.unsplash.com/photo-1559591935-c6c1c937f3b3?auto=format&fit=crop&w=900&q=80');
+VALUES ('Tooth Brush', 'Signal Tooth Brushes Size in (L, M, S)', 5, 34.50, 'https://images.pexels.com/photos/298611/pexels-photo-298611.jpeg?auto=compress&cs=tinysrgb&w=900');
 INSERT INTO PRODUCT (name, description, quantity, price, image_url)
 VALUES ('Shirt', 'Casual Shirt imported from France', 3, 1500.00, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80');
 INSERT INTO PRODUCT (name, description, quantity, price, image_url)
