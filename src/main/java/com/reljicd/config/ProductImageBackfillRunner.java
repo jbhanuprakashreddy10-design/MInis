@@ -20,7 +20,6 @@ public class ProductImageBackfillRunner implements CommandLineRunner {
     public ProductImageBackfillRunner(ProductRepository productRepository) {
         this.productRepository = productRepository;
         defaultImageByKeyword.put("soap", "https://images.pexels.com/photos/4465124/pexels-photo-4465124.jpeg?auto=compress&cs=tinysrgb&w=900");
-        defaultImageByKeyword.put("tooth", "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ6ftC04UkQ7zEbaDjdLycv6fSYoS6MfZor0v4ptpNqldlsEKCq24tTJE5HNo70nxkx9chLh9ws2MvOh17phnHgxRD_IJfK-JWBUPEXHoq72J_rcKXxNy1I-g");
         defaultImageByKeyword.put("shirt", "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80");
         defaultImageByKeyword.put("bag", "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80");
         defaultImageByKeyword.put("bottle", "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=900&q=80");
@@ -50,7 +49,7 @@ public class ProductImageBackfillRunner implements CommandLineRunner {
             return false;
         }
         String loweredName = productName.toLowerCase();
-        return loweredName.contains("soap") || loweredName.contains("tooth");
+        return loweredName.contains("soap");
     }
 
     private String imageForProductName(String productName) {

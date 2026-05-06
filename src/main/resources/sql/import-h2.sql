@@ -29,8 +29,6 @@ VALUES (3, 2);
 INSERT INTO PRODUCT (name, description, quantity, price, image_url)
 VALUES ('Soap', 'Pears baby soap for Kids', 1, 35.75, 'https://images.pexels.com/photos/4465124/pexels-photo-4465124.jpeg?auto=compress&cs=tinysrgb&w=900');
 INSERT INTO PRODUCT (name, description, quantity, price, image_url)
-VALUES ('Tooth Brush', 'Signal Tooth Brushes Size in (L, M, S)', 5, 34.50, 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ6ftC04UkQ7zEbaDjdLycv6fSYoS6MfZor0v4ptpNqldlsEKCq24tTJE5HNo70nxkx9chLh9ws2MvOh17phnHgxRD_IJfK-JWBUPEXHoq72J_rcKXxNy1I-g');
-INSERT INTO PRODUCT (name, description, quantity, price, image_url)
 VALUES ('Shirt', 'Casual Shirt imported from France', 3, 1500.00, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80');
 INSERT INTO PRODUCT (name, description, quantity, price, image_url)
 VALUES ('Office Bag', 'Leather bag imported from USA', 40, 1000.00, 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80');
