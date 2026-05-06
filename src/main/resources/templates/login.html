@@ -6,55 +6,47 @@
     <div th:replace="/fragments/header :: header"></div>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 
 <body>
 
-<!-- Navbar -->
 <div th:replace="/fragments/header :: navbar"></div>
 
-<!-- Centered Login -->
 <div class="center-container">
-
     <div class="login-card">
 
         <h2 class="title">Welcome Back</h2>
 
         <form th:action="@{/login}" method="post">
 
-            <!-- Error Message -->
             <div th:if="${param.error}" class="alert error">
                 Invalid username and password.
             </div>
 
-            <!-- Logout Message -->
             <div th:if="${param.logout}" class="alert info">
                 You have been logged out.
             </div>
 
-            <!-- Username -->
             <div class="input-group">
                 <input type="text" name="username" id="username"
-                       placeholder="Username" required autofocus>
+                       placeholder="Username"
+                       required="required" autofocus="autofocus" />
             </div>
 
-            <!-- Password -->
             <div class="input-group">
                 <input type="password" name="password" id="password"
-                       placeholder="Password" required>
+                       placeholder="Password"
+                       required="required" />
             </div>
 
-            <!-- Button -->
             <button type="submit" class="btn-login">Login</button>
 
         </form>
 
     </div>
-
 </div>
 
-<!-- Footer -->
 <div th:replace="/fragments/footer :: footer"></div>
 
 </body>
