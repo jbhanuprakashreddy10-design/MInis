@@ -24,6 +24,7 @@ body {
     background: var(--bg);
     color: var(--text);
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 18px;
 }
 
 body {
@@ -72,7 +73,7 @@ a:hover {
 }
 
 .logo {
-    font-size: 1.1rem;
+    font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: 0.02em;
 }
@@ -88,7 +89,7 @@ a:hover {
     padding: 10px 16px;
     border-radius: 999px;
     color: var(--secondary);
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -243,6 +244,7 @@ main.page-main {
     border-radius: 999px;
     padding: 12px 20px;
     font-weight: 600;
+    font-size: 1rem;
     transition: transform 0.2s ease, background-color 0.2s ease;
     text-decoration: none;
 }
@@ -329,7 +331,7 @@ main.page-main {
     background: #f8fafc;
     color: var(--text);
     padding: 16px 20px;
-    font-size: 1rem;
+    font-size: 1.05rem;
     box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08), inset 0 1px 3px rgba(255, 255, 255, 0.8);
     transition: all 0.3s ease;
 }
@@ -393,7 +395,7 @@ select.form-control option {
     margin-top: 18px;
     text-align: center;
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .auth-note a {
