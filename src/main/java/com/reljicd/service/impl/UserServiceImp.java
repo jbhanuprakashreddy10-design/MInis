@@ -20,6 +20,7 @@ public class UserServiceImp implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     private static final String USER_ROLE = "ROLE_USER";
+    private static final String ADMIN_ROLE = "ROLE_ADMIN";
 
     @Autowired
     public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
@@ -53,8 +54,9 @@ public class UserServiceImp implements UserService {
         // Encode plaintext password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(1);
+        String normalizedRole = ADMIN_ROLE.equals(roleName) ? ADMIN_ROLE : USER_ROLE;
         // Set Role to specified role
-        user.setRoles(Collections.singletonList(roleRepository.findByRole(roleName)));
+        user.setRoles(Collections.singletonList(roleRepository.findByRole(normalizedRole)));
         return userRepository.saveAndFlush(user);
     }
 

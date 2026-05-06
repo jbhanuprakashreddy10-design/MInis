@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="/fragments/header :: header" />
+</head>
+
+<body class="page-shell">
+
+<div th:replace="/fragments/header :: navbar"></div>
+
+<main class="page-main">
+    <section class="hero">
+        <div class="hero-copy">
+            <h1>Discover products from trusted sellers.</h1>
+            <p>Browse everything added by admins and add your favorites to cart.</p>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <div class="page-header">
+            <h2>Available Products</h2>
+            <p>Products listed by admin sellers</p>
+        </div>
+
+        <div class="products-wrapper">
+            <div th:replace="/fragments/products :: products"></div>
+        </div>
+
+        <div class="pagination-wrapper">
+            <div th:replace="/fragments/pagination :: pagination(URLparameter='/user/dashboard')"></div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="/fragments/footer :: footer"></div>
+
+</body>
+</html>

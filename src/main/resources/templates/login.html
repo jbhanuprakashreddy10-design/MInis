@@ -23,6 +23,9 @@
                 <div th:if="${param.error}" class="alert alert-error">
                     Invalid username and password.
                 </div>
+                <div th:if="${param.roleError}" class="alert alert-error">
+                    Selected login type does not match your account role.
+                </div>
 
                 <div th:if="${param.logout}" class="alert alert-info">
                     You have been logged out.
@@ -38,6 +41,14 @@
                     <input type="password" name="password" id="password"
                            placeholder="Password"
                            required="required" class="form-control" />
+                </div>
+
+                <div class="input-group">
+                    <select name="role" class="form-control" required="required">
+                        <option value="" disabled="disabled" selected="selected">Select Login Type</option>
+                        <option value="ROLE_USER">User</option>
+                        <option value="ROLE_ADMIN">Admin</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-submit">Login</button>

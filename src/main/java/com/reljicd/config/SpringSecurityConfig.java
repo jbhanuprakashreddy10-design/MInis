@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -60,7 +61,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/home", "/registration", "/error", "/h2-console/**").permitAll()
-                .antMatchers("/admin/dashboard").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/user/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -82,11 +83,26 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return (request, response, authentication) -> {
             boolean isAdmin = authentication.getAuthorities().stream()
                     .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+            boolean isUser = authentication.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_USER"));
+            String selectedRole = request.getParameter("role");
+
+            if (selectedRole != null && !selectedRole.trim().isEmpty()) {
+                boolean roleMismatch =
+                        ("ROLE_ADMIN".equals(selectedRole) && !isAdmin) ||
+                        ("ROLE_USER".equals(selectedRole) && !isUser);
+                if (roleMismatch) {
+                    SecurityContextHolder.clearContext();
+                    request.getSession().invalidate();
+                    response.sendRedirect("/login?roleError");
+                    return;
+                }
+            }
 
             if (isAdmin) {
                 response.sendRedirect("/admin/dashboard");
             } else {
-                response.sendRedirect("/admin/dashboard");
+                response.sendRedirect("/user/dashboard");
             }
         };
     }
