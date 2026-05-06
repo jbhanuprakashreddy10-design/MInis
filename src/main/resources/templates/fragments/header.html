@@ -17,6 +17,7 @@
                 <a class="logo" th:href="@{/home}">🛒 ShopEasy</a>
                 <div class="nav-links">
                     <a th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()">Cart</a>
+                    <a th:href="@{/admin/dashboard}" sec:authorize="hasRole('ADMIN')">Admin Panel</a>
                     <a th:href="@{/registration}" sec:authorize="!isAuthenticated()">Register</a>
                     <a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
                     <a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout">Logout</a>

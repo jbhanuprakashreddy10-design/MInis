@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -30,7 +31,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${spring.admin.username}")
     private String adminUsername;
 
-    @Value("${spring.admin.username}")
+    @Value("${spring.admin.password}")
     private String adminPassword;
 
     @Value("${spring.queries.users-query}")
@@ -59,11 +60,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/home", "/registration", "/error", "/h2-console/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home")
+                .successHandler(authenticationSuccessHandler())
                 .permitAll()
                 .and()
                 .logout()
@@ -74,6 +76,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().headers().frameOptions().disable();
     }
 
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return (request, response, authentication) -> {
+            boolean isAdmin = authentication.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+            if (isAdmin) {
+                response.sendRedirect("/admin/dashboard");
+            } else {
+                response.sendRedirect("/home");
+            }
+        };
+    }
 
     /**
      * Authentication details
