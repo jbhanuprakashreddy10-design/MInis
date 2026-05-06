@@ -1,83 +1,75 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <div th:replace="/fragments/header :: header"></div>
-
-    <!-- Global CSS -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <th:block th:replace="/fragments/header :: header" />
 </head>
 
-<body>
+<body class="page-shell">
 
-<!-- Navbar -->
 <div th:replace="/fragments/header :: navbar"></div>
 
-<!-- Centered Container -->
-<div class="center-container">
-
-    <div class="register-card">
-
-        <h2 class="title">Create Account</h2>
-
-        <!-- Success Message -->
-        <div class="alert info" th:if="${successMessage}" th:utext="${successMessage}"></div>
-
-        <form autocomplete="off"
-              th:action="@{/registration}"
-              th:object="${user}"
-              method="post">
-
-            <!-- Name -->
-            <div class="input-group">
-                <input type="text" th:field="*{name}" placeholder="First Name">
-                <label class="error"
-                       th:if="${#fields.hasErrors('name')}"
-                       th:errors="*{name}"></label>
+<main class="auth-page">
+    <section class="auth-panel auth-panel--wide">
+        <div class="auth-card">
+            <div class="auth-card__header">
+                <h1 class="title">Create Account</h1>
+                <p class="subtitle">Start your shopping journey with a modern account.</p>
             </div>
 
-            <!-- Last Name -->
-            <div class="input-group">
-                <input type="text" th:field="*{lastName}" placeholder="Last Name">
-                <label class="error"
-                       th:if="${#fields.hasErrors('lastName')}"
-                       th:errors="*{lastName}"></label>
-            </div>
+            <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
 
-            <!-- Email -->
-            <div class="input-group">
-                <input type="text" th:field="*{email}" placeholder="Email">
-                <label class="error"
-                       th:if="${#fields.hasErrors('email')}"
-                       th:errors="*{email}"></label>
-            </div>
+            <form autocomplete="off"
+                  th:action="@{/registration}"
+                  th:object="${user}"
+                  method="post" class="auth-form">
 
-            <!-- Password -->
-            <div class="input-group">
-                <input type="password" th:field="*{password}" placeholder="Password">
-                <label class="error"
-                       th:if="${#fields.hasErrors('password')}"
-                       th:errors="*{password}"></label>
-            </div>
+                <div class="input-group">
+                    <input type="text" th:field="*{name}" placeholder="First Name" class="form-control" required="required" />
+                    <label class="error"
+                           th:if="${#fields.hasErrors('name')}"
+                           th:errors="*{name}"></label>
+                </div>
 
-            <!-- Username -->
-            <div class="input-group">
-                <input type="text" th:field="*{username}" placeholder="Username">
-                <label class="error"
-                       th:if="${#fields.hasErrors('username')}"
-                       th:errors="*{username}"></label>
-            </div>
+                <div class="input-group">
+                    <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control" required="required" />
+                    <label class="error"
+                           th:if="${#fields.hasErrors('lastName')}"
+                           th:errors="*{lastName}"></label>
+                </div>
 
-            <!-- Submit -->
-            <button type="submit" class="btn-primary">Register</button>
+                <div class="input-group">
+                    <input type="text" th:field="*{email}" placeholder="Email" class="form-control" required="required" />
+                    <label class="error"
+                           th:if="${#fields.hasErrors('email')}"
+                           th:errors="*{email}"></label>
+                </div>
 
-        </form>
+                <div class="input-group">
+                    <input type="password" th:field="*{password}" placeholder="Password" class="form-control" required="required" />
+                    <label class="error"
+                           th:if="${#fields.hasErrors('password')}"
+                           th:errors="*{password}"></label>
+                </div>
 
-    </div>
+                <div class="input-group">
+                    <input type="text" th:field="*{username}" placeholder="Username" class="form-control" required="required" />
+                    <label class="error"
+                           th:if="${#fields.hasErrors('username')}"
+                           th:errors="*{username}"></label>
+                </div>
 
-</div>
+                <button type="submit" class="btn btn-primary btn-submit">Register</button>
 
-<!-- Footer -->
+                <p class="auth-note">
+                    Already have an account? <a th:href="@{/login}">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </section>
+</main>
+
 <div th:replace="/fragments/footer :: footer"></div>
 
 </body>

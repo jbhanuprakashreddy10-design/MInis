@@ -1,56 +1,28 @@
-<html xmlns:th="http://www.thymeleaf.org"
+<div xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
-<head>
-
-    <!-- HEADER FRAGMENT -->
     <div th:fragment="header">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title th:text="#{thymeleaf.app.title}">Shop</title>
 
-        <!-- Bootstrap -->
-        <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
-
-        <!-- jQuery -->
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
         <script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-
-        <!-- Custom CSS -->
-        <link rel="stylesheet" th:href="@{/css/style.css}">
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
     </div>
 
-</head>
-
-<body>
-
-<!-- NAVBAR FRAGMENT -->
-<div th:fragment="navbar">
-
-    <nav class="custom-navbar">
-
-        <div class="nav-container">
-
-            <!-- Logo -->
-            <a class="logo" th:href="@{/home}">🛒 ShopEasy</a>
-
-            <!-- Links -->
-            <div class="nav-links">
-
-                <!-- Authenticated -->
-                <a th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()">Cart</a>
-
-                <!-- Not Authenticated -->
-                <a th:href="@{/registration}" sec:authorize="!isAuthenticated()">Register</a>
-                <a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
-
-                <!-- Authenticated -->
-                <a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout">Logout</a>
-
+    <div th:fragment="navbar">
+        <nav class="custom-navbar">
+            <div class="nav-container">
+                <a class="logo" th:href="@{/home}">🛒 ShopEasy</a>
+                <div class="nav-links">
+                    <a th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()">Cart</a>
+                    <a th:href="@{/registration}" sec:authorize="!isAuthenticated()">Register</a>
+                    <a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
+                    <a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout">Logout</a>
+                </div>
             </div>
-
-        </div>
-
-    </nav>
+        </nav>
+    </div>
 
 </div>
-
-</body>
-</html>

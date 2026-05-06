@@ -1,40 +1,39 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <div th:replace="/fragments/header :: header"></div>
-
-    <!-- Global CSS -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <th:block th:replace="/fragments/header :: header" />
 </head>
 
-<body>
+<body class="page-shell">
 
-<!-- Navbar -->
 <div th:replace="/fragments/header :: navbar"></div>
 
-<!-- Main Content -->
-<div class="main-container">
+<main class="page-main">
+    <section class="hero">
+        <div class="hero-copy">
+            <h1>Explore curated products for every mood.</h1>
+            <p>Fast browsing, clean cards, and a smooth shopping experience.</p>
+        </div>
+    </section>
 
-    <!-- Page Title -->
-    <div class="page-header">
-        <h2>Explore Products</h2>
-        <p>Find the best items for you</p>
-    </div>
+    <section class="products-section">
+        <div class="page-header">
+            <h2>Explore Products</h2>
+            <p>Find the best items for you</p>
+        </div>
 
-    <!-- Products Section -->
-    <div class="products-wrapper">
-        <div th:replace="/fragments/products :: products"></div>
-    </div>
+        <div class="products-wrapper">
+            <div th:replace="/fragments/products :: products"></div>
+        </div>
 
-    <!-- Pagination -->
-    <div class="pagination-wrapper">
-        <div th:replace="/fragments/pagination :: pagination(URLparameter='/home')"></div>
-    </div>
+        <div class="pagination-wrapper">
+            <div th:replace="/fragments/pagination :: pagination(URLparameter='/home')"></div>
+        </div>
+    </section>
+</main>
 
-</div>
-
-<!-- Footer -->
 <div th:replace="/fragments/footer :: footer"></div>
 
 </body>

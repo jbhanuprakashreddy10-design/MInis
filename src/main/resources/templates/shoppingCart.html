@@ -1,73 +1,63 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <div th:replace="/fragments/header :: header"></div>
-
-    <!-- Global CSS -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <th:block th:replace="/fragments/header :: header" />
 </head>
 
-<body>
+<body class="page-shell">
 
-<!-- Navbar -->
 <div th:replace="/fragments/header :: navbar"></div>
 
-<div class="cart-container">
+<main class="cart-page">
+    <section class="cart-panel">
+        <div class="cart-header">
+            <h1 class="cart-title">
+                <span sec:authentication="name"></span>'s Shopping Cart
+            </h1>
+            <p class="subtitle">Review your cart items and proceed to checkout.</p>
+        </div>
 
-    <!-- Title -->
-    <h2 class="cart-title">
-        <span sec:authentication="name"></span>'s Shopping Cart
-    </h2>
+        <div class="alert alert-error" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
 
-    <!-- Out of stock message -->
-    <div class="alert error" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
+        <div class="cart-layout">
+            <div class="cart-list">
+                <div class="cart-card" th:each="product : ${products.entrySet()}">
+                    <div class="cart-info">
+                        <h3>
+                            <a th:text="${product.getKey().name}"
+                               th:href="@{'/product/' + ${product.getKey().id}}">
+                                Product Name
+                            </a>
+                        </h3>
 
-    <!-- Cart Items -->
-    <div class="cart-list">
+                        <p class="desc" th:text="${product.getKey().description}">Description</p>
 
-        <div class="cart-card" th:each="product : ${products.entrySet()}">
+                        <div class="details">
+                            <span>Price: <span th:text="${product.getKey().price}"></span> $</span>
+                            <span>Qty: <span th:text="${product.getValue()}"></span></span>
+                        </div>
+                    </div>
 
-            <div class="cart-info">
-                <h3>
-                    <a th:text="${product.getKey().name}"
-                       th:href="@{'/product/' + ${product.getKey().id}}">
-                        Product Name
-                    </a>
-                </h3>
-
-                <p class="desc" th:text="${product.getKey().description}">Description</p>
-
-                <div class="details">
-                    <span>Price: <span th:text="${product.getKey().price}"></span> $</span>
-                    <span>Qty: <span th:text="${product.getValue()}"></span></span>
+                    <div class="cart-actions">
+                        <a th:href="@{'/shoppingCart/removeProduct/{id}'(id=${product.getKey().id})}"
+                           class="btn btn-secondary btn-remove">
+                            Remove
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Remove Button -->
-            <div class="cart-actions">
-                <a th:href="@{'/shoppingCart/removeProduct/{id}'(id=${product.getKey().id})}">
-                    <button class="btn-remove">Remove</button>
-                </a>
-            </div>
-
+            <aside class="cart-summary">
+                <h2>Total: <span th:text="${total}"></span></h2>
+                <a th:href="@{'/shoppingCart/checkout'}" class="btn btn-primary btn-checkout">Checkout</a>
+            </aside>
         </div>
+    </section>
+</main>
 
-    </div>
-
-    <!-- Total + Checkout -->
-    <div class="cart-summary">
-        <h3>Total: <span th:text="${total}"></span></h3>
-
-        <a th:href="@{'/shoppingCart/checkout'}">
-            <button class="btn-checkout">Checkout</button>
-        </a>
-    </div>
-
-</div>
-
-<!-- Footer -->
 <div th:replace="/fragments/footer :: footer"></div>
 
 </body>
