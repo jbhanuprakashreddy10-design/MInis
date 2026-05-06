@@ -60,6 +60,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/home", "/registration", "/error", "/h2-console/**").permitAll()
+                .antMatchers("/admin/dashboard").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -85,7 +86,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             if (isAdmin) {
                 response.sendRedirect("/admin/dashboard");
             } else {
-                response.sendRedirect("/home");
+                response.sendRedirect("/admin/dashboard");
             }
         };
     }

@@ -16,6 +16,8 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private final UserService userService;
+    private static final String ROLE_USER = "ROLE_USER";
+    private static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     @Autowired
     public RegistrationController(UserService userService) {
@@ -44,6 +46,9 @@ public class RegistrationController {
             bindingResult
                     .rejectValue("username", "error.user",
                             "There is already a user registered with the username provided");
+        }
+        if (!ROLE_USER.equals(role) && !ROLE_ADMIN.equals(role)) {
+            bindingResult.rejectValue("username", "error.user", "Invalid role selected");
         }
 
         ModelAndView modelAndView = new ModelAndView();

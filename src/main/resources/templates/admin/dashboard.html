@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <th:block th:replace="/fragments/header :: header" />
@@ -55,8 +56,8 @@
                 <span th:text="${successMessage}"></span>
             </div>
 
-            <!-- Add/Edit Product Form -->
-            <div class="admin-section">
+            <!-- Add/Edit Product Form (admins only) -->
+            <div class="admin-section" sec:authorize="hasRole('ADMIN')">
                 <h2 th:text="${editMode} ? 'Edit Product' : 'Add New Product'"></h2>
                 <form th:action="${editMode} ? @{/admin/products/update} : @{/admin/products/add}" th:object="${product}" method="post" class="admin-form">
                     <div class="form-row">
@@ -104,17 +105,17 @@
                                 <th>Description</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
-                                <th>Actions</th>
+                                <th sec:authorize="hasRole('ADMIN')">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr th:each="product : ${products}">
                                 <td th:text="${product.id}"></td>
                                 <td th:text="${product.name}"></td>
                                 <td th:text="${product.description}"></td>
                                 <td>₹ <span th:text="${product.price}"></span></td>
                                 <td th:text="${product.quantity}"></td>
-                                <td>
+                                <td sec:authorize="hasRole('ADMIN')">
                                     <a th:href="@{'/admin/products/edit/' + ${product.id}}"
                                        class="btn btn-warning btn-sm">Edit</a>
                                     <a th:href="@{'/admin/products/delete/' + ${product.id}}"
@@ -127,8 +128,8 @@
                 </div>
             </div>
 
-            <!-- User Management -->
-            <div class="admin-section">
+            <!-- User Management (admins only) -->
+            <div class="admin-section" sec:authorize="hasRole('ADMIN')">
                 <h2>All Users</h2>
                 <div class="users-table">
                     <table class="admin-table">
