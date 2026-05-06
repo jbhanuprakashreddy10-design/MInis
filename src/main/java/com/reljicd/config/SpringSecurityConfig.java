@@ -67,6 +67,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/login")
                 .successHandler(authenticationSuccessHandler())
                 .permitAll()
                 .and()
@@ -125,7 +126,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // In memory authentication
         auth.inMemoryAuthentication()
-                .withUser(adminUsername).password(adminPassword).roles("ADMIN");
+                .passwordEncoder(passwordEncoder())
+                .withUser(adminUsername).password(passwordEncoder().encode(adminPassword)).roles("ADMIN");
     }
 
     /**

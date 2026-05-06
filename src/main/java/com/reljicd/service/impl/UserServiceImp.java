@@ -1,6 +1,7 @@
 package com.reljicd.service.impl;
 
 import com.reljicd.model.User;
+import com.reljicd.model.Role;
 import com.reljicd.repository.RoleRepository;
 import com.reljicd.repository.UserRepository;
 import com.reljicd.service.UserService;
@@ -55,8 +56,14 @@ public class UserServiceImp implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(1);
         String normalizedRole = ADMIN_ROLE.equals(roleName) ? ADMIN_ROLE : USER_ROLE;
-        // Set Role to specified role
-        user.setRoles(Collections.singletonList(roleRepository.findByRole(normalizedRole)));
+        // Ensure role exists, then assign it
+        Role role = roleRepository.findByRole(normalizedRole);
+        if (role == null) {
+            role = new Role();
+            role.setRole(normalizedRole);
+            role = roleRepository.save(role);
+        }
+        user.setRoles(Collections.singletonList(role));
         return userRepository.saveAndFlush(user);
     }
 
