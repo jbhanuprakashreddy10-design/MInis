@@ -1,6 +1,7 @@
 package com.reljicd.model;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -22,6 +23,10 @@ public class Product {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "image_url")
+    @URL(message = "*Please provide a valid image URL")
+    private String imageUrl;
 
     @Column(name = "quantity", nullable = false)
     @Min(value = 0, message = "*Quantity has to be non negative number")
@@ -61,6 +66,14 @@ public class Product {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public BigDecimal getPrice() {

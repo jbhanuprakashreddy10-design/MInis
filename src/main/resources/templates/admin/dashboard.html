@@ -79,6 +79,12 @@
                             <label class="error" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></label>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="url" th:field="*{imageUrl}" placeholder="Image URL (https://...)" class="form-control" />
+                            <label class="error" th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></label>
+                        </div>
+                    </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary" th:text="${editMode} ? 'Update Product' : 'Add Product'"></button>
                         <a th:if="${editMode}" href="@{/admin/dashboard}" class="btn btn-secondary">Cancel</a>
@@ -103,6 +109,7 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>Image</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th sec:authorize="hasRole('ADMIN')">Actions</th>
@@ -113,6 +120,10 @@
                                 <td th:text="${product.id}"></td>
                                 <td th:text="${product.name}"></td>
                                 <td th:text="${product.description}"></td>
+                                <td>
+                                    <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/80x60?text=No+Image' : product.imageUrl}"
+                                         th:alt="${product.name}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 8px;" />
+                                </td>
                                 <td>₹ <span th:text="${product.price}"></span></td>
                                 <td th:text="${product.quantity}"></td>
                                 <td sec:authorize="hasRole('ADMIN')">
