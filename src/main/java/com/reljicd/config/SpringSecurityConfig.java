@@ -87,16 +87,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_USER"));
             String selectedRole = request.getParameter("role");
 
-            if (selectedRole != null && !selectedRole.trim().isEmpty()) {
-                boolean roleMismatch =
-                        ("ROLE_ADMIN".equals(selectedRole) && !isAdmin) ||
-                        ("ROLE_USER".equals(selectedRole) && !isUser);
-                if (roleMismatch) {
-                    SecurityContextHolder.clearContext();
-                    request.getSession().invalidate();
-                    response.sendRedirect("/login?roleError");
-                    return;
-                }
+            boolean missingRole = selectedRole == null || selectedRole.trim().isEmpty();
+            boolean invalidRole = !missingRole
+                    && !"ROLE_ADMIN".equals(selectedRole)
+                    && !"ROLE_USER".equals(selectedRole);
+            boolean roleMismatch = ("ROLE_ADMIN".equals(selectedRole) && !isAdmin)
+                    || ("ROLE_USER".equals(selectedRole) && !isUser);
+
+            if (missingRole || invalidRole || roleMismatch) {
+                SecurityContextHolder.clearContext();
+                request.getSession().invalidate();
+                response.sendRedirect("/login?roleError");
+                return;
             }
 
             if (isAdmin) {
