@@ -2,8 +2,10 @@ package com.reljicd.config;
 
 import com.reljicd.model.Product;
 import com.reljicd.model.Role;
+import com.reljicd.model.User;
 import com.reljicd.repository.ProductRepository;
 import com.reljicd.repository.RoleRepository;
+import com.reljicd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,15 +17,18 @@ public class PersistentDataBootstrapRunner implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
     private final ProductRepository productRepository;
+    private final UserService userService;
 
     @Autowired
-    public PersistentDataBootstrapRunner(RoleRepository roleRepository, ProductRepository productRepository) {
+    public PersistentDataBootstrapRunner(RoleRepository roleRepository, ProductRepository productRepository, UserService userService) {
         this.roleRepository = roleRepository;
         this.productRepository = productRepository;
+        this.userService = userService;
     }
 
     @Override
     public void run(String... args) {
+        ensureDefaultUser();
         ensureRole("ROLE_ADMIN");
         ensureRole("ROLE_USER");
         productRepository.deleteByName("Tooth Brush");
@@ -66,5 +71,17 @@ public class PersistentDataBootstrapRunner implements CommandLineRunner {
         product.setPrice(new BigDecimal(price));
         product.setImageUrl(imageUrl);
         productRepository.save(product);
+    }
+
+    private void ensureDefaultUser() {
+        if (userService.findByUsername("user").isEmpty()) {
+            User user = new User();
+            user.setUsername("user");
+            user.setPassword("user12345");
+            user.setEmail("user@example.com");
+            user.setName("Default");
+            user.setLastName("User");
+            userService.saveUser(user);
+        }
     }
 }
